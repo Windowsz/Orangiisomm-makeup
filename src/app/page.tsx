@@ -7,8 +7,8 @@ import ContactSection from '@/components/home/ContactSection'
 
 export const dynamic = 'force-dynamic'
 
-export default function HomePage() {
-  const content = readContent()
+export default async function HomePage() {
+  const content = await readContent()
 
   return (
     <main>
