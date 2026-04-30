@@ -2,14 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Red lipstick cursor applied globally */
+/* Red lipstick cursor — rotated -45° to match standard cursor angle, hotspot at tip */
 *, *::before, *::after {
-  cursor: url('/cursor/lipstick.svg') 16 3, auto;
+  cursor: url('/cursor/lipstick.svg') 7 7, auto;
 }
 
 a, button, [role="button"], input[type="submit"], input[type="button"],
 select, label[for], [tabindex] {
-  cursor: url('/cursor/lipstick.svg') 16 3, pointer;
+  cursor: url('/cursor/lipstick.svg') 7 7, pointer;
 }
 
 /* Smooth scrolling */
