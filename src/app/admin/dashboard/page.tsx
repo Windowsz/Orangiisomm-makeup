@@ -6,6 +6,7 @@ import type { SiteContent } from '@/lib/types'
 import GalleryManager from '@/components/admin/GalleryManager'
 import HeroEditor from '@/components/admin/HeroEditor'
 import AboutEditor from '@/components/admin/AboutEditor'
+import ContactEditor from '@/components/admin/ContactEditor'
 
 export default function DashboardPage() {
   const router = useRouter()
@@ -79,6 +80,10 @@ export default function DashboardPage() {
         <AboutEditor
           content={content.about}
           onUpdate={about => setContent(c => c ? { ...c, about } : c)}
+        />
+        <ContactEditor
+          content={content.contact}
+          onUpdate={contact => setContent(c => c ? { ...c, contact } : c)}
         />
       </div>
     </div>

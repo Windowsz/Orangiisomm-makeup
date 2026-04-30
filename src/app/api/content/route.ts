@@ -25,9 +25,10 @@ export async function PATCH(req: NextRequest) {
     const current = await readContent()
 
     const updated: SiteContent = {
-      hero:      patch.hero      ? { ...current.hero,  ...patch.hero }  : current.hero,
-      about:     patch.about     ? { ...current.about, ...patch.about } : current.about,
-      gallery:   patch.gallery   !== undefined ? patch.gallery          : current.gallery,
+      hero:      patch.hero      ? { ...current.hero,    ...patch.hero }    : current.hero,
+      about:     patch.about     ? { ...current.about,   ...patch.about }   : current.about,
+      contact:   patch.contact   ? { ...current.contact, ...patch.contact } : current.contact,
+      gallery:   patch.gallery   !== undefined ? patch.gallery              : current.gallery,
       updatedAt: new Date().toISOString(),
     }
 

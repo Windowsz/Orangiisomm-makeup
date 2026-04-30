@@ -16,7 +16,7 @@ export default async function HomePage() {
       <GallerySection images={content.gallery} />
       <FacebookSection />
       <AboutSection content={content.about} />
-      <ContactSection />
+      <ContactSection content={content.contact} />
     </main>
   )
 }
