@@ -15,7 +15,7 @@ export default function ContactSection() {
         </p>
 
         <a
-          href="https://www.facebook.com/Orangiisommakeup"
+          href="https://www.facebook.com/Orangiisommmakeup"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-3 bg-[#1877F2] text-white font-body font-bold tracking-wider text-sm px-10 py-4 rounded-full hover:bg-[#0d6efd] hover:scale-105 transition-all duration-200 shadow-lg shadow-blue-400/30"

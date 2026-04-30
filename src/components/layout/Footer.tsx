@@ -4,7 +4,7 @@ export default function Footer() {
       <p className="font-display text-brand-gold text-lg mb-2">Orangiisomm</p>
       <p className="text-sm mb-4 italic">Made with love &amp; lipstick ♥</p>
       <a
-        href="https://www.facebook.com/Orangiisommakeup"
+        href="https://www.facebook.com/Orangiisommmakeup"
         target="_blank"
         rel="noopener noreferrer"
         className="inline-flex items-center gap-2 text-brand-gold hover:text-brand-goldLight transition-colors text-sm"

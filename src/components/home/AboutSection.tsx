@@ -43,7 +43,7 @@ export default function AboutSection({ content }: AboutSectionProps) {
             {content.body}
           </p>
           <a
-            href="https://www.facebook.com/Orangiisommakeup"
+            href="https://www.facebook.com/Orangiisommmakeup"
             target="_blank"
             rel="noopener noreferrer"
             className="mt-8 inline-flex items-center gap-2 text-brand-goldDark font-body font-bold text-sm tracking-widest uppercase border-b-2 border-brand-gold hover:border-brand-crimson hover:text-brand-crimson transition-colors"
