@@ -4,10 +4,11 @@ import { useState } from 'react'
 import Link from 'next/link'
 
 const links = [
-  { href: '#home',    label: 'Home' },
-  { href: '#gallery', label: 'Gallery' },
-  { href: '#about',   label: 'About' },
-  { href: '#contact', label: 'Contact' },
+  { href: '#home',     label: 'Home' },
+  { href: '#gallery',  label: 'Gallery' },
+  { href: '#facebook', label: 'Facebook' },
+  { href: '#about',    label: 'About' },
+  { href: '#contact',  label: 'Contact' },
 ]
 
 export default function Navbar() {
