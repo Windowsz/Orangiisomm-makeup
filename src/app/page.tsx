@@ -1,7 +1,6 @@
 import { readContent } from '@/lib/content'
 import HeroSection from '@/components/home/HeroSection'
 import GallerySection from '@/components/home/GallerySection'
-import FacebookSection from '@/components/home/FacebookSection'
 import AboutSection from '@/components/home/AboutSection'
 import ContactSection from '@/components/home/ContactSection'
 
@@ -14,7 +13,6 @@ export default function HomePage() {
     <main>
       <HeroSection content={content.hero} />
       <GallerySection images={content.gallery} />
-      <FacebookSection />
       <AboutSection content={content.about} />
       <ContactSection />
     </main>
