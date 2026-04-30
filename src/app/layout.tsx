@@ -31,7 +31,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${playfair.variable} ${lato.variable}`}>
       <body>
-        <div id="fb-root" />
         <Navbar />
         {children}
         <Footer />
