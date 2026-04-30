@@ -1,0 +1,52 @@
+{
+  "hero": {
+    "headline": "Glam That Speaks",
+    "subheadline": "Professional makeup artistry by Orangiisomm — bringing out the beauty in every face",
+    "ctaText": "See My Work",
+    "ctaLink": "#gallery"
+  },
+  "about": {
+    "title": "About Orangiisomm",
+    "body": "Passionate makeup artist with years of experience transforming looks for weddings, editorials, and special occasions. Every face tells a story — let me help tell yours with confidence, color, and artistry.",
+    "imageUrl": "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=800"
+  },
+  "gallery": [
+    {
+      "id": "1",
+      "url": "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=800",
+      "alt": "Bold red lip glam look",
+      "caption": "Classic Red Glam"
+    },
+    {
+      "id": "2",
+      "url": "https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=800",
+      "alt": "Soft glam bridal makeup",
+      "caption": "Bridal Soft Glam"
+    },
+    {
+      "id": "3",
+      "url": "https://images.unsplash.com/photo-1503236823255-94609f598e71?w=800",
+      "alt": "Smoky eye editorial look",
+      "caption": "Smoky Editorial"
+    },
+    {
+      "id": "4",
+      "url": "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800",
+      "alt": "Makeup flat lay with products",
+      "caption": "My Kit"
+    },
+    {
+      "id": "5",
+      "url": "https://images.unsplash.com/photo-1560696610-cf509e24e3f7?w=800",
+      "alt": "Dewy natural makeup look",
+      "caption": "Natural Glow"
+    },
+    {
+      "id": "6",
+      "url": "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=800",
+      "alt": "Glamorous evening makeup",
+      "caption": "Evening Glam"
+    }
+  ],
+  "updatedAt": "2026-04-30T00:00:00Z"
+}

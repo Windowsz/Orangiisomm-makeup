@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <!-- Lipstick tube body (gold) -->
+  <rect x="11" y="16" width="10" height="12" rx="1.5" fill="#C9A96E"/>
+  <!-- Tube cap band -->
+  <rect x="10" y="14" width="12" height="3" rx="1" fill="#A07840"/>
+  <!-- Lipstick bullet (red) -->
+  <path d="M12 14 L16 3 L20 14 Z" fill="#C0392B"/>
+  <!-- Bullet sheen -->
+  <path d="M14 12 L16 4.5 L17.5 12 Z" fill="rgba(255,255,255,0.25)"/>
+  <!-- Tube base cap -->
+  <rect x="11" y="27" width="10" height="3" rx="1.5" fill="#A07840"/>
+</svg>

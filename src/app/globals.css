@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Red lipstick cursor applied globally */
+*, *::before, *::after {
+  cursor: url('/cursor/lipstick.svg') 16 3, auto;
+}
+
+a, button, [role="button"], input[type="submit"], input[type="button"],
+select, label[for], [tabindex] {
+  cursor: url('/cursor/lipstick.svg') 16 3, pointer;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Base body styles */
+body {
+  background-color: #FFF8F9;
+  color: #333;
+  font-family: var(--font-lato), system-ui, sans-serif;
+}
+
+/* Gold divider utility */
+@layer utilities {
+  .gold-divider {
+    @apply w-16 h-0.5 bg-brand-gold mx-auto;
+  }
+  .gold-divider-left {
+    @apply w-16 h-0.5 bg-brand-gold;
+  }
+}
