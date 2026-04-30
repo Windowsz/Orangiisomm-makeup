@@ -11,18 +11,39 @@ function readFromFile(): SiteContent {
   return JSON.parse(raw) as SiteContent
 }
 
-export async function readContent(): Promise<SiteContent> {
-  // In production use Vercel KV; seed from file if KV is empty
-  try {
-    const data = await kv.get<SiteContent>(CONTENT_KEY)
-    if (data) return data
+// Merge stored data with file defaults — fills in any fields added after initial deploy
+function mergeWithDefaults(stored: Partial<SiteContent>, defaults: SiteContent): SiteContent {
+  return {
+    hero:      { ...defaults.hero,    ...(stored.hero    ?? {}) },
+    about:     { ...defaults.about,   ...(stored.about   ?? {}) },
+    contact:   { ...defaults.contact, ...(stored.contact ?? {}) },
+    gallery:   stored.gallery ?? defaults.gallery,
+    updatedAt: stored.updatedAt ?? defaults.updatedAt,
+  }
+}
 
-    // KV is empty on first deploy — seed it from the bundled JSON file
-    const seed = readFromFile()
-    await kv.set(CONTENT_KEY, seed)
-    return seed
+export async function readContent(): Promise<SiteContent> {
+  try {
+    const defaults = readFromFile()
+    const stored = await kv.get<Partial<SiteContent>>(CONTENT_KEY)
+
+    if (!stored) {
+      // KV is empty — seed with defaults
+      await kv.set(CONTENT_KEY, defaults)
+      return defaults
+    }
+
+    // Merge so any newly added fields (e.g. contact) are never undefined
+    const merged = mergeWithDefaults(stored, defaults)
+
+    // If we added new fields, persist the merged version back to KV
+    if (!stored.contact) {
+      await kv.set(CONTENT_KEY, merged)
+    }
+
+    return merged
   } catch {
-    // KV not configured (local dev without KV env vars) — use filesystem
+    // KV not configured (local dev) — use filesystem
     return readFromFile()
   }
 }
