@@ -7,7 +7,7 @@ import type { SiteContent } from '@/lib/types'
 
 export async function GET() {
   try {
-    const content = readContent()
+    const content = await readContent()
     return NextResponse.json(content)
   } catch {
     return NextResponse.json({ error: 'Failed to read content' }, { status: 500 })
@@ -22,16 +22,16 @@ export async function PATCH(req: NextRequest) {
 
   try {
     const patch = await req.json() as Partial<SiteContent>
-    const current = readContent()
+    const current = await readContent()
 
     const updated: SiteContent = {
-      hero:      patch.hero      ? { ...current.hero,    ...patch.hero }    : current.hero,
-      about:     patch.about     ? { ...current.about,   ...patch.about }   : current.about,
-      gallery:   patch.gallery   !== undefined ? patch.gallery              : current.gallery,
+      hero:      patch.hero      ? { ...current.hero,  ...patch.hero }  : current.hero,
+      about:     patch.about     ? { ...current.about, ...patch.about } : current.about,
+      gallery:   patch.gallery   !== undefined ? patch.gallery          : current.gallery,
       updatedAt: new Date().toISOString(),
     }
 
-    writeContent(updated)
+    await writeContent(updated)
     return NextResponse.json({ ok: true, content: updated })
   } catch {
     return NextResponse.json({ error: 'Failed to update content' }, { status: 500 })
