@@ -1,0 +1,13 @@
+{
+  "name": "Orangiisomm — ช่างแต่งหน้ามืออาชีพ",
+  "short_name": "Orangiisomm",
+  "description": "ช่างแต่งหน้ามืออาชีพ รับแต่งหน้าเจ้าสาว งานแต่งงาน และโอกาสพิเศษ",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ],
+  "theme_color": "#C9A96E",
+  "background_color": "#FFF8F9",
+  "display": "standalone",
+  "start_url": "/",
+  "lang": "th"
+}
