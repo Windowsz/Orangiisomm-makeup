@@ -10,6 +10,16 @@
     "body": "Passionate makeup artist with years of experience transforming looks for weddings, editorials, and special occasions. Every face tells a story — let me help tell yours with confidence, color, and artistry.",
     "imageUrl": "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=800"
   },
+  "contact": {
+    "headline": "Book Your Look",
+    "body": "Ready to transform your look? DM me on Facebook for bookings, pricing, and availability. Whether it's a wedding, photoshoot, or special occasion — I'd love to work with you.",
+    "ctaText": "Message on Facebook",
+    "stats": [
+      { "value": "100+", "label": "Happy Clients" },
+      { "value": "5★", "label": "Rated Service" },
+      { "value": "3+", "label": "Years Experience" }
+    ]
+  },
   "gallery": [
     {
       "id": "1",

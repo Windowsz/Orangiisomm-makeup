@@ -1,4 +1,10 @@
-export default function ContactSection() {
+import type { ContactContent } from '@/lib/types'
+
+interface ContactSectionProps {
+  content: ContactContent
+}
+
+export default function ContactSection({ content }: ContactSectionProps) {
   return (
     <section id="contact" className="py-20 px-6 bg-brand-blush">
       <div className="max-w-2xl mx-auto text-center">
@@ -6,12 +12,11 @@ export default function ContactSection() {
           Get In Touch
         </p>
         <h2 className="font-display text-4xl md:text-5xl font-bold text-gray-800 mb-4">
-          Book Your Look
+          {content.headline}
         </h2>
         <div className="gold-divider mb-6" />
         <p className="font-body text-gray-600 text-lg leading-relaxed mb-10">
-          Ready to transform your look? DM me on Facebook for bookings, pricing, and availability.
-          Whether it&apos;s a wedding, photoshoot, or special occasion — I&apos;d love to work with you.
+          {content.body}
         </p>
 
         <a
@@ -23,24 +28,19 @@ export default function ContactSection() {
           <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.884v2.25h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/>
           </svg>
-          Message on Facebook
+          {content.ctaText}
         </a>
 
         <div className="mt-12 flex justify-center gap-8 text-brand-goldDark">
-          <div className="text-center">
-            <p className="font-display text-3xl font-bold">100+</p>
-            <p className="font-body text-sm text-gray-500 mt-1">Happy Clients</p>
-          </div>
-          <div className="w-px bg-brand-rose" />
-          <div className="text-center">
-            <p className="font-display text-3xl font-bold">5★</p>
-            <p className="font-body text-sm text-gray-500 mt-1">Rated Service</p>
-          </div>
-          <div className="w-px bg-brand-rose" />
-          <div className="text-center">
-            <p className="font-display text-3xl font-bold">3+</p>
-            <p className="font-body text-sm text-gray-500 mt-1">Years Experience</p>
-          </div>
+          {content.stats.map((stat, i) => (
+            <>
+              {i > 0 && <div key={`div-${i}`} className="w-px bg-brand-rose" />}
+              <div key={stat.label} className="text-center">
+                <p className="font-display text-3xl font-bold">{stat.value}</p>
+                <p className="font-body text-sm text-gray-500 mt-1">{stat.label}</p>
+              </div>
+            </>
+          ))}
         </div>
       </div>
     </section>

@@ -18,9 +18,22 @@ export interface AboutContent {
   imageUrl?: string
 }
 
+export interface StatItem {
+  value: string
+  label: string
+}
+
+export interface ContactContent {
+  headline: string
+  body: string
+  ctaText: string
+  stats: [StatItem, StatItem, StatItem]
+}
+
 export interface SiteContent {
   hero: HeroContent
   about: AboutContent
+  contact: ContactContent
   gallery: GalleryImage[]
   updatedAt: string
 }
