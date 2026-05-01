@@ -11,15 +11,31 @@ function readFromFile(): SiteContent {
   return JSON.parse(raw) as SiteContent
 }
 
-// Merge stored data with file defaults — fills in any fields added after initial deploy
 function mergeWithDefaults(stored: Partial<SiteContent>, defaults: SiteContent): SiteContent {
   return {
     hero:      { ...defaults.hero,    ...(stored.hero    ?? {}) },
     about:     { ...defaults.about,   ...(stored.about   ?? {}) },
-    contact:   { ...defaults.contact, ...(stored.contact ?? {}) },
-    gallery:   stored.gallery ?? defaults.gallery,
+    contact: {
+      ...defaults.contact,
+      ...(stored.contact ?? {}),
+      // ensure cards array always exists
+      cards: (stored.contact as SiteContent['contact'] | undefined)?.cards ?? defaults.contact.cards,
+      stats: (stored.contact as SiteContent['contact'] | undefined)?.stats ?? defaults.contact.stats,
+    },
+    gallery:         stored.gallery         ?? defaults.gallery,
+    gallerySettings: stored.gallerySettings ? { ...defaults.gallerySettings, ...stored.gallerySettings } : defaults.gallerySettings,
+    sectionStyles:   stored.sectionStyles   ? {
+      hero:         { ...defaults.sectionStyles.hero,         ...(stored.sectionStyles.hero         ?? {}) },
+      gallery:      { ...defaults.sectionStyles.gallery,      ...(stored.sectionStyles.gallery      ?? {}) },
+      facebook:     { ...defaults.sectionStyles.facebook,     ...(stored.sectionStyles.facebook     ?? {}) },
+      aboutContact: { ...defaults.sectionStyles.aboutContact, ...(stored.sectionStyles.aboutContact ?? {}) },
+    } : defaults.sectionStyles,
     updatedAt: stored.updatedAt ?? defaults.updatedAt,
   }
+}
+
+function needsUpdate(stored: Partial<SiteContent>): boolean {
+  return !stored.contact?.cards || !stored.gallerySettings || !stored.sectionStyles
 }
 
 export async function readContent(): Promise<SiteContent> {
@@ -28,22 +44,18 @@ export async function readContent(): Promise<SiteContent> {
     const stored = await kv.get<Partial<SiteContent>>(CONTENT_KEY)
 
     if (!stored) {
-      // KV is empty — seed with defaults
       await kv.set(CONTENT_KEY, defaults)
       return defaults
     }
 
-    // Merge so any newly added fields (e.g. contact) are never undefined
     const merged = mergeWithDefaults(stored, defaults)
 
-    // If we added new fields, persist the merged version back to KV
-    if (!stored.contact) {
+    if (needsUpdate(stored)) {
       await kv.set(CONTENT_KEY, merged)
     }
 
     return merged
   } catch {
-    // KV not configured (local dev) — use filesystem
     return readFromFile()
   }
 }

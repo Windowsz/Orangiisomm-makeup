@@ -74,6 +74,26 @@ export default function HeroEditor({ content, onUpdate }: HeroEditorProps) {
             />
           </div>
         </div>
+        <div>
+          <label className="block text-xs font-bold tracking-widest uppercase text-gray-500 mb-1">QR Code Image URL</label>
+          <input
+            type="text"
+            value={form.qrImageUrl || ''}
+            onChange={e => setForm(f => ({ ...f, qrImageUrl: e.target.value }))}
+            placeholder="https://... (leave empty to hide)"
+            className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold"
+          />
+        </div>
+        <div>
+          <label className="block text-xs font-bold tracking-widest uppercase text-gray-500 mb-1">QR Code Caption</label>
+          <input
+            type="text"
+            value={form.qrCaption || ''}
+            onChange={e => setForm(f => ({ ...f, qrCaption: e.target.value }))}
+            placeholder="e.g. สแกนเพื่อติดต่อ / Scan to contact"
+            className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold"
+          />
+        </div>
         <div className="flex items-center gap-3">
           <button
             onClick={handleSave}
