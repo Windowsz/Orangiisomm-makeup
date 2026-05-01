@@ -3,7 +3,9 @@
     "headline": "Glam That Speaks",
     "subheadline": "Professional makeup artistry by Orangiisomm — bringing out the beauty in every face",
     "ctaText": "See My Work",
-    "ctaLink": "#gallery"
+    "ctaLink": "#gallery",
+    "qrImageUrl": "",
+    "qrCaption": "สแกนเพื่อติดต่อ / Scan to contact"
   },
   "about": {
     "title": "About Orangiisomm",
@@ -12,12 +14,35 @@
   },
   "contact": {
     "headline": "Book Your Look",
-    "body": "Ready to transform your look? DM me on Facebook for bookings, pricing, and availability. Whether it's a wedding, photoshoot, or special occasion — I'd love to work with you.",
+    "body": "Ready to transform your look? Contact me for bookings, pricing, and availability. Whether it's a wedding, photoshoot, or special occasion — I'd love to work with you.",
     "ctaText": "Message on Facebook",
     "stats": [
       { "value": "100+", "label": "Happy Clients" },
       { "value": "5★", "label": "Rated Service" },
       { "value": "3+", "label": "Years Experience" }
+    ],
+    "cards": [
+      {
+        "id": "line",
+        "label": "Line",
+        "value": "@orangiisomm",
+        "href": "https://lin.ee/Hjhy6rb",
+        "icon": "line"
+      },
+      {
+        "id": "phone",
+        "label": "โทรศัพท์",
+        "value": "083-437-5181",
+        "href": "tel:0834375181",
+        "icon": "phone"
+      },
+      {
+        "id": "facebook",
+        "label": "Facebook",
+        "value": "Orangiisommmakeup",
+        "href": "https://www.facebook.com/Orangiisommmakeup",
+        "icon": "facebook"
+      }
     ]
   },
   "gallery": [
@@ -58,5 +83,16 @@
       "caption": "Evening Glam"
     }
   ],
+  "gallerySettings": {
+    "mode": "grid",
+    "autoPlay": true,
+    "interval": 3
+  },
+  "sectionStyles": {
+    "hero": { "bgColor": "", "bgImageUrl": "" },
+    "gallery": { "bgColor": "", "bgImageUrl": "" },
+    "facebook": { "bgColor": "", "bgImageUrl": "" },
+    "aboutContact": { "bgColor": "", "bgImageUrl": "" }
+  },
   "updatedAt": "2026-04-30T00:00:00Z"
 }

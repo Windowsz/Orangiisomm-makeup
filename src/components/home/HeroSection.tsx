@@ -1,23 +1,32 @@
-import type { HeroContent } from '@/lib/types'
+import type { HeroContent, SectionStyle } from '@/lib/types'
 
 interface HeroSectionProps {
   content: HeroContent
+  style?: SectionStyle
 }
 
-export default function HeroSection({ content }: HeroSectionProps) {
+function sectionBg(style?: SectionStyle): React.CSSProperties {
+  if (!style) return { background: 'radial-gradient(ellipse at 60% 40%, #FAD4E0 0%, #F7E8EE 40%, #FFF8F9 100%)' }
+  if (style.bgImageUrl) return {
+    backgroundImage: `url(${style.bgImageUrl})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundColor: style.bgColor || '#FFF8F9',
+  }
+  if (style.bgColor) return { backgroundColor: style.bgColor }
+  return { background: 'radial-gradient(ellipse at 60% 40%, #FAD4E0 0%, #F7E8EE 40%, #FFF8F9 100%)' }
+}
+
+export default function HeroSection({ content, style }: HeroSectionProps) {
   return (
     <section
       id="home"
       className="relative min-h-screen flex flex-col items-center justify-center text-center px-6 pt-16 overflow-hidden"
-      style={{
-        background: 'radial-gradient(ellipse at 60% 40%, #FAD4E0 0%, #F7E8EE 40%, #FFF8F9 100%)',
-      }}
+      style={sectionBg(style)}
     >
-      {/* Decorative blobs */}
       <div className="absolute top-20 left-10 w-64 h-64 rounded-full bg-brand-blush/40 blur-3xl pointer-events-none" />
       <div className="absolute bottom-20 right-10 w-80 h-80 rounded-full bg-brand-goldLight/30 blur-3xl pointer-events-none" />
 
-      {/* Gold accent line */}
       <div className="gold-divider mb-8" />
 
       <p className="font-body text-xs tracking-[0.3em] uppercase text-brand-goldDark mb-4">
@@ -39,7 +48,21 @@ export default function HeroSection({ content }: HeroSectionProps) {
         {content.ctaText}
       </a>
 
-      {/* Scroll indicator */}
+      {/* QR code block */}
+      {content.qrImageUrl && (
+        <div className="mt-8 flex flex-col items-center gap-2">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={content.qrImageUrl}
+            alt="QR Code"
+            className="w-28 h-28 object-contain rounded-xl shadow-md border-2 border-brand-rose/30 bg-white p-1"
+          />
+          {content.qrCaption && (
+            <p className="font-body text-xs text-brand-goldDark tracking-wide">{content.qrCaption}</p>
+          )}
+        </div>
+      )}
+
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 animate-bounce">
         <span className="font-body text-xs text-brand-rose tracking-widest uppercase">Scroll</span>
         <svg className="w-4 h-4 text-brand-rose" fill="none" stroke="currentColor" viewBox="0 0 24 24">

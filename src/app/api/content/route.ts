@@ -29,6 +29,15 @@ export async function PATCH(req: NextRequest) {
       about:     patch.about     ? { ...current.about,   ...patch.about }   : current.about,
       contact:   patch.contact   ? { ...current.contact, ...patch.contact } : current.contact,
       gallery:   patch.gallery   !== undefined ? patch.gallery              : current.gallery,
+      gallerySettings: patch.gallerySettings
+        ? { ...current.gallerySettings, ...patch.gallerySettings }
+        : current.gallerySettings,
+      sectionStyles: patch.sectionStyles ? {
+        hero:         { ...current.sectionStyles.hero,         ...(patch.sectionStyles.hero         ?? {}) },
+        gallery:      { ...current.sectionStyles.gallery,      ...(patch.sectionStyles.gallery      ?? {}) },
+        facebook:     { ...current.sectionStyles.facebook,     ...(patch.sectionStyles.facebook     ?? {}) },
+        aboutContact: { ...current.sectionStyles.aboutContact, ...(patch.sectionStyles.aboutContact ?? {}) },
+      } : current.sectionStyles,
       updatedAt: new Date().toISOString(),
     }
 
