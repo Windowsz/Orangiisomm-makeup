@@ -2,6 +2,7 @@ import { readContent } from '@/lib/content'
 import HeroSection from '@/components/home/HeroSection'
 import GallerySection from '@/components/home/GallerySection'
 import FacebookSection from '@/components/home/FacebookSection'
+import PricingSection from '@/components/home/PricingSection'
 import AboutContactSection from '@/components/home/AboutContactSection'
 
 export const dynamic = 'force-dynamic'
@@ -18,6 +19,7 @@ export default async function HomePage() {
         style={content.sectionStyles.gallery}
       />
       <FacebookSection style={content.sectionStyles.facebook} />
+      <PricingSection content={content.pricing} style={content.sectionStyles.pricing} />
       <AboutContactSection
         aboutContent={content.about}
         contactContent={content.contact}

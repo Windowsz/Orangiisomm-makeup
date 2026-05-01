@@ -7,6 +7,7 @@ import GalleryManager from '@/components/admin/GalleryManager'
 import HeroEditor from '@/components/admin/HeroEditor'
 import AboutEditor from '@/components/admin/AboutEditor'
 import ContactEditor from '@/components/admin/ContactEditor'
+import PricingEditor from '@/components/admin/PricingEditor'
 import GallerySettingsEditor from '@/components/admin/GallerySettingsEditor'
 import SectionStyleEditor from '@/components/admin/SectionStyleEditor'
 
@@ -117,6 +118,11 @@ export default function DashboardPage() {
           onUpdate={contact => setContent(c => c ? { ...c, contact } : c)}
         />
 
+        <PricingEditor
+          content={content.pricing}
+          onUpdate={pricing => setContent(c => c ? { ...c, pricing } : c)}
+        />
+
         {/* Section Backgrounds */}
         <div className="bg-white rounded-xl border border-gray-100 p-6">
           <h2 className="font-display text-lg font-bold text-gray-800 mb-4">Section Backgrounds</h2>
@@ -138,6 +144,11 @@ export default function DashboardPage() {
               label="Facebook"
               value={content.sectionStyles.facebook}
               onChange={v => setContent(c => c ? { ...c, sectionStyles: { ...c.sectionStyles, facebook: v } } : c)}
+            />
+            <SectionStyleEditor
+              label="Pricing"
+              value={content.sectionStyles.pricing}
+              onChange={v => setContent(c => c ? { ...c, sectionStyles: { ...c.sectionStyles, pricing: v } } : c)}
             />
             <SectionStyleEditor
               label="About & Contact"

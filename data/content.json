@@ -88,11 +88,75 @@
     "autoPlay": true,
     "interval": 3
   },
+  "pricing": {
+    "headline": "Pricing & Packages",
+    "subheadline": "ราคาและแพ็คเกจ — Transparent pricing for every occasion",
+    "cards": [
+      {
+        "id": "natural",
+        "title": "Natural Glow",
+        "price": "฿1,500",
+        "priceNote": "per session",
+        "description": "Everyday fresh & dewy look — perfect for casual events and portraits.",
+        "features": [
+          "Skin prep & primer",
+          "Natural foundation",
+          "Soft eye makeup",
+          "Lip color",
+          "Setting spray",
+          "Up to 1.5 hrs"
+        ],
+        "highlighted": false,
+        "ctaText": "Book Now",
+        "ctaHref": "#contact"
+      },
+      {
+        "id": "glam",
+        "title": "Full Glam",
+        "price": "฿2,500",
+        "priceNote": "per session",
+        "description": "Bold & polished — ideal for events, photoshoots, and special nights out.",
+        "features": [
+          "Skin prep & primer",
+          "Full-coverage foundation",
+          "Contour & highlight",
+          "Dramatic eye look",
+          "Lashes included",
+          "Long-lasting setting",
+          "Up to 2 hrs"
+        ],
+        "highlighted": true,
+        "ctaText": "Book Now",
+        "ctaHref": "#contact"
+      },
+      {
+        "id": "bridal",
+        "title": "Bridal Premium",
+        "price": "฿4,500",
+        "priceNote": "per session",
+        "description": "Your dream wedding look — flawless from ceremony to reception.",
+        "features": [
+          "Pre-bridal consultation",
+          "Trial session included",
+          "HD skin preparation",
+          "Airbrush foundation",
+          "Bridal eye design",
+          "Premium lashes",
+          "Touch-up kit",
+          "On-site service available"
+        ],
+        "highlighted": false,
+        "ctaText": "Book Now",
+        "ctaHref": "#contact"
+      }
+    ]
+  },
   "sectionStyles": {
     "hero": { "bgColor": "", "bgImageUrl": "" },
     "gallery": { "bgColor": "", "bgImageUrl": "" },
     "facebook": { "bgColor": "", "bgImageUrl": "" },
-    "aboutContact": { "bgColor": "", "bgImageUrl": "" }
+    "aboutContact": { "bgColor": "", "bgImageUrl": "" },
+    "pricing": { "bgColor": "", "bgImageUrl": "" }
   },
   "updatedAt": "2026-04-30T00:00:00Z"
 }
