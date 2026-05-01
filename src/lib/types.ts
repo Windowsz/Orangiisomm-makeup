@@ -51,6 +51,25 @@ export interface SectionStyles {
   gallery: SectionStyle
   facebook: SectionStyle
   aboutContact: SectionStyle
+  pricing: SectionStyle
+}
+
+export interface PricingCard {
+  id: string
+  title: string
+  price: string
+  priceNote?: string
+  description?: string
+  features: string[]
+  highlighted?: boolean
+  ctaText?: string
+  ctaHref?: string
+}
+
+export interface PricingContent {
+  headline: string
+  subheadline?: string
+  cards: PricingCard[]
 }
 
 export interface GallerySettings {
@@ -65,6 +84,7 @@ export interface SiteContent {
   contact: ContactContent
   gallery: GalleryImage[]
   gallerySettings: GallerySettings
+  pricing: PricingContent
   sectionStyles: SectionStyles
   updatedAt: string
 }

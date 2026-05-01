@@ -29,6 +29,7 @@ export async function PATCH(req: NextRequest) {
       about:     patch.about     ? { ...current.about,   ...patch.about }   : current.about,
       contact:   patch.contact   ? { ...current.contact, ...patch.contact } : current.contact,
       gallery:   patch.gallery   !== undefined ? patch.gallery              : current.gallery,
+      pricing:   patch.pricing   !== undefined ? patch.pricing              : current.pricing,
       gallerySettings: patch.gallerySettings
         ? { ...current.gallerySettings, ...patch.gallerySettings }
         : current.gallerySettings,
@@ -37,6 +38,7 @@ export async function PATCH(req: NextRequest) {
         gallery:      { ...current.sectionStyles.gallery,      ...(patch.sectionStyles.gallery      ?? {}) },
         facebook:     { ...current.sectionStyles.facebook,     ...(patch.sectionStyles.facebook     ?? {}) },
         aboutContact: { ...current.sectionStyles.aboutContact, ...(patch.sectionStyles.aboutContact ?? {}) },
+        pricing:      { ...current.sectionStyles.pricing,      ...(patch.sectionStyles.pricing      ?? {}) },
       } : current.sectionStyles,
       updatedAt: new Date().toISOString(),
     }
