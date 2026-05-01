@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 
 export default function LoginForm() {
   const router = useRouter()
+  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
@@ -18,7 +19,7 @@ export default function LoginForm() {
       const res = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ password }),
+        body: JSON.stringify({ username, password }),
       })
 
       if (res.ok) {
@@ -40,10 +41,26 @@ export default function LoginForm() {
         <div className="text-center mb-8">
           <div className="text-4xl mb-3">💄</div>
           <h1 className="font-display text-2xl font-bold text-brand-goldDark">Admin Login</h1>
-          <p className="text-sm text-gray-500 mt-1">Enter your password to continue</p>
+          <p className="text-sm text-gray-500 mt-1">Sign in to manage your site</p>
         </div>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          <div>
+            <label htmlFor="username" className="block text-xs font-bold tracking-widest uppercase text-gray-500 mb-2">
+              Username
+            </label>
+            <input
+              id="username"
+              type="text"
+              value={username}
+              onChange={e => setUsername(e.target.value)}
+              className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold focus:border-transparent"
+              placeholder="Enter username"
+              required
+              autoComplete="username"
+            />
+          </div>
+
           <div>
             <label htmlFor="password" className="block text-xs font-bold tracking-widest uppercase text-gray-500 mb-2">
               Password
@@ -54,7 +71,7 @@ export default function LoginForm() {
               value={password}
               onChange={e => setPassword(e.target.value)}
               className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold focus:border-transparent"
-              placeholder="Enter admin password"
+              placeholder="Enter password"
               required
               autoComplete="current-password"
             />
