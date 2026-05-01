@@ -10,6 +10,7 @@ import ContactEditor from '@/components/admin/ContactEditor'
 import PricingEditor from '@/components/admin/PricingEditor'
 import GallerySettingsEditor from '@/components/admin/GallerySettingsEditor'
 import SectionStyleEditor from '@/components/admin/SectionStyleEditor'
+import CredentialsEditor from '@/components/admin/CredentialsEditor'
 
 export default function DashboardPage() {
   const router = useRouter()
@@ -167,6 +168,8 @@ export default function DashboardPage() {
             {stylesSaved && <span className="text-green-600 text-sm font-body">Saved ✓</span>}
           </div>
         </div>
+
+        <CredentialsEditor />
       </div>
     </div>
   )
