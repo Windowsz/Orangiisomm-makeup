@@ -9,6 +9,7 @@ import AboutEditor from '@/components/admin/AboutEditor'
 import ContactEditor from '@/components/admin/ContactEditor'
 import PricingEditor from '@/components/admin/PricingEditor'
 import GallerySettingsEditor from '@/components/admin/GallerySettingsEditor'
+import SocialEditor from '@/components/admin/SocialEditor'
 import SectionStyleEditor from '@/components/admin/SectionStyleEditor'
 import CredentialsEditor from '@/components/admin/CredentialsEditor'
 
@@ -77,11 +78,7 @@ export default function DashboardPage() {
           </p>
         </div>
         <div className="flex items-center gap-4">
-          <a
-            href="/"
-            target="_blank"
-            className="text-sm text-brand-goldDark hover:underline font-body"
-          >
+          <a href="/" target="_blank" className="text-sm text-brand-goldDark hover:underline font-body">
             View Site ↗
           </a>
           <button
@@ -109,6 +106,11 @@ export default function DashboardPage() {
           onUpdate={hero => setContent(c => c ? { ...c, hero } : c)}
         />
 
+        <SocialEditor
+          content={content.social}
+          onUpdate={social => setContent(c => c ? { ...c, social } : c)}
+        />
+
         <AboutEditor
           content={content.about}
           onUpdate={about => setContent(c => c ? { ...c, about } : c)}
@@ -126,9 +128,9 @@ export default function DashboardPage() {
 
         {/* Section Backgrounds */}
         <div className="bg-white rounded-xl border border-gray-100 p-6">
-          <h2 className="font-display text-lg font-bold text-gray-800 mb-4">Section Backgrounds</h2>
+          <h2 className="font-display text-lg font-bold text-gray-800 mb-1">Section Backgrounds</h2>
           <p className="text-xs text-gray-400 mb-4 font-body">
-            Set a background color or image URL for each section. Leave empty to use the default style.
+            Enter plain CSS for each section&apos;s background. Uses ID selector so it overrides the default. Leave empty for the default style.
           </p>
           <div className="flex flex-col gap-3">
             <SectionStyleEditor
@@ -142,9 +144,9 @@ export default function DashboardPage() {
               onChange={v => setContent(c => c ? { ...c, sectionStyles: { ...c.sectionStyles, gallery: v } } : c)}
             />
             <SectionStyleEditor
-              label="Facebook"
-              value={content.sectionStyles.facebook}
-              onChange={v => setContent(c => c ? { ...c, sectionStyles: { ...c.sectionStyles, facebook: v } } : c)}
+              label="Social"
+              value={content.sectionStyles.social}
+              onChange={v => setContent(c => c ? { ...c, sectionStyles: { ...c.sectionStyles, social: v } } : c)}
             />
             <SectionStyleEditor
               label="Pricing"

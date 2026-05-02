@@ -7,17 +7,6 @@ interface AboutContactSectionProps {
   style?: SectionStyle
 }
 
-function sectionBg(style?: SectionStyle): React.CSSProperties {
-  if (!style || (!style.bgColor && !style.bgImageUrl)) return {}
-  if (style.bgImageUrl) return {
-    backgroundImage: `url(${style.bgImageUrl})`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    backgroundColor: style.bgColor || undefined,
-  }
-  return { backgroundColor: style.bgColor }
-}
-
 function ContactIcon({ type }: { type: string }) {
   if (type === 'line') return (
     <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor">
@@ -55,15 +44,9 @@ const iconColors: Record<string, string> = {
 }
 
 export default function AboutContactSection({ aboutContent, contactContent, style }: AboutContactSectionProps) {
-  const bgStyle = sectionBg(style)
-  const hasBg = !!(style?.bgColor || style?.bgImageUrl)
-
   return (
-    <section
-      id="about"
-      className={`py-20 px-6 ${hasBg ? '' : 'bg-brand-petal'}`}
-      style={hasBg ? bgStyle : undefined}
-    >
+    <section id="about" className="py-20 px-6 bg-brand-petal">
+      {style?.bgCss && <style>{`#about { ${style.bgCss} }`}</style>}
       <div className="max-w-5xl mx-auto">
 
         {/* ── About block ── */}

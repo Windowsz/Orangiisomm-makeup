@@ -12,6 +12,7 @@ export interface HeroContent {
   ctaLink: string
   qrImageUrl?: string
   qrCaption?: string
+  qrSize?: number   // width/height in px, default 112
 }
 
 export interface AboutContent {
@@ -27,9 +28,9 @@ export interface StatItem {
 
 export interface ContactCard {
   id: string
-  label: string   // e.g. "Line", "โทรศัพท์"
-  value: string   // display text e.g. "@orangiisomm", "083-437-5181"
-  href: string    // actual link e.g. "https://lin.ee/Hjhy6rb", "tel:0834375181"
+  label: string
+  value: string
+  href: string
   icon: 'line' | 'phone' | 'facebook' | 'instagram' | 'custom'
 }
 
@@ -41,17 +42,26 @@ export interface ContactContent {
   cards: ContactCard[]
 }
 
+export interface SocialContent {
+  html: string
+}
+
 export interface SectionStyle {
-  bgColor?: string
-  bgImageUrl?: string
+  bgCss?: string   // raw CSS applied to the section, e.g. "background: linear-gradient(...)"
 }
 
 export interface SectionStyles {
   hero: SectionStyle
   gallery: SectionStyle
-  facebook: SectionStyle
-  aboutContact: SectionStyle
+  social: SectionStyle
   pricing: SectionStyle
+  aboutContact: SectionStyle
+}
+
+export interface GallerySettings {
+  mode: 'grid' | 'carousel'
+  autoPlay: boolean
+  interval: number
 }
 
 export interface PricingCard {
@@ -72,16 +82,11 @@ export interface PricingContent {
   cards: PricingCard[]
 }
 
-export interface GallerySettings {
-  mode: 'grid' | 'carousel'
-  autoPlay: boolean
-  interval: number   // seconds between slides
-}
-
 export interface SiteContent {
   hero: HeroContent
   about: AboutContent
   contact: ContactContent
+  social: SocialContent
   gallery: GalleryImage[]
   gallerySettings: GallerySettings
   pricing: PricingContent
