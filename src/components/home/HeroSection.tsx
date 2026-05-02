@@ -5,25 +5,18 @@ interface HeroSectionProps {
   style?: SectionStyle
 }
 
-function sectionBg(style?: SectionStyle): React.CSSProperties {
-  if (!style) return { background: 'radial-gradient(ellipse at 60% 40%, #FAD4E0 0%, #F7E8EE 40%, #FFF8F9 100%)' }
-  if (style.bgImageUrl) return {
-    backgroundImage: `url(${style.bgImageUrl})`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    backgroundColor: style.bgColor || '#FFF8F9',
-  }
-  if (style.bgColor) return { backgroundColor: style.bgColor }
-  return { background: 'radial-gradient(ellipse at 60% 40%, #FAD4E0 0%, #F7E8EE 40%, #FFF8F9 100%)' }
-}
-
 export default function HeroSection({ content, style }: HeroSectionProps) {
+  const qrSize = content.qrSize ?? 112
+  const captionFontSize = Math.round(qrSize * 0.3)
+
   return (
     <section
       id="home"
       className="relative min-h-screen flex flex-col items-center justify-center text-center px-6 pt-16 overflow-hidden"
-      style={sectionBg(style)}
+      style={!style?.bgCss ? { background: 'radial-gradient(ellipse at 60% 40%, #FAD4E0 0%, #F7E8EE 40%, #FFF8F9 100%)' } : undefined}
     >
+      {style?.bgCss && <style>{`#home { ${style.bgCss} }`}</style>}
+
       <div className="absolute top-20 left-10 w-64 h-64 rounded-full bg-brand-blush/40 blur-3xl pointer-events-none" />
       <div className="absolute bottom-20 right-10 w-80 h-80 rounded-full bg-brand-goldLight/30 blur-3xl pointer-events-none" />
 
@@ -48,17 +41,22 @@ export default function HeroSection({ content, style }: HeroSectionProps) {
         {content.ctaText}
       </a>
 
-      {/* QR code block */}
       {content.qrImageUrl && (
         <div className="mt-8 flex flex-col items-center gap-2">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={content.qrImageUrl}
             alt="QR Code"
-            className="w-28 h-28 object-contain rounded-xl shadow-md border-2 border-brand-rose/30 bg-white p-1"
+            style={{ width: qrSize, height: qrSize }}
+            className="object-contain rounded-xl shadow-md border-2 border-brand-rose/30 bg-white p-1"
           />
           {content.qrCaption && (
-            <p className="font-body text-xs text-brand-goldDark tracking-wide">{content.qrCaption}</p>
+            <p
+              className="font-body text-brand-goldDark tracking-wide"
+              style={{ fontSize: captionFontSize }}
+            >
+              {content.qrCaption}
+            </p>
           )}
         </div>
       )}

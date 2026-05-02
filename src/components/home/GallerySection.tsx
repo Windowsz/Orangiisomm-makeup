@@ -8,25 +8,10 @@ interface GallerySectionProps {
   style?: SectionStyle
 }
 
-function sectionBg(style?: SectionStyle): React.CSSProperties {
-  if (!style || (!style.bgColor && !style.bgImageUrl)) return {}
-  if (style.bgImageUrl) return {
-    backgroundImage: `url(${style.bgImageUrl})`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    backgroundColor: style.bgColor || undefined,
-  }
-  return { backgroundColor: style.bgColor }
-}
-
 export default function GallerySection({ images, settings, style }: GallerySectionProps) {
-  const hasBg = !!(style?.bgColor || style?.bgImageUrl)
   return (
-    <section
-      id="gallery"
-      className={`py-20 px-6 ${hasBg ? '' : 'bg-white'}`}
-      style={hasBg ? sectionBg(style) : undefined}
-    >
+    <section id="gallery" className="py-20 px-6 bg-white">
+      {style?.bgCss && <style>{`#gallery { ${style.bgCss} }`}</style>}
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <p className="font-body text-xs tracking-[0.3em] uppercase text-brand-goldDark mb-3">

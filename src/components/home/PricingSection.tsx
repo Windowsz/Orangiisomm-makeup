@@ -5,26 +5,10 @@ interface PricingSectionProps {
   style?: SectionStyle
 }
 
-function sectionBg(style?: SectionStyle): React.CSSProperties {
-  if (!style || (!style.bgColor && !style.bgImageUrl)) return {}
-  if (style.bgImageUrl) return {
-    backgroundImage: `url(${style.bgImageUrl})`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    backgroundColor: style.bgColor || undefined,
-  }
-  return { backgroundColor: style.bgColor }
-}
-
 export default function PricingSection({ content, style }: PricingSectionProps) {
-  const hasBg = !!(style?.bgColor || style?.bgImageUrl)
-
   return (
-    <section
-      id="pricing"
-      className={`py-20 px-6 ${hasBg ? '' : 'bg-brand-blush/40'}`}
-      style={hasBg ? sectionBg(style) : undefined}
-    >
+    <section id="pricing" className="py-20 px-6 bg-brand-blush/40">
+      {style?.bgCss && <style>{`#pricing { ${style.bgCss} }`}</style>}
       <div className="max-w-6xl mx-auto">
         {/* Heading */}
         <div className="text-center mb-14">
