@@ -99,7 +99,7 @@ export default function HeroEditor({ content, onUpdate }: HeroEditorProps) {
         </div>
         <div>
           <label className="block text-xs font-bold tracking-widest uppercase text-gray-500 mb-1">
-            QR Code Caption <span className="normal-case font-normal text-gray-400">(font size auto-scales to ~30% of QR size)</span>
+            QR Code Caption <span className="normal-case font-normal text-gray-400">(same font size as the hero subheadline)</span>
           </label>
           <input
             type="text"

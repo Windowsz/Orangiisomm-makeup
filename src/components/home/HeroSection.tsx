@@ -7,7 +7,6 @@ interface HeroSectionProps {
 
 export default function HeroSection({ content, style }: HeroSectionProps) {
   const qrSize = content.qrSize ?? 112
-  const captionFontSize = Math.round(qrSize * 0.3)
 
   return (
     <section
@@ -51,10 +50,7 @@ export default function HeroSection({ content, style }: HeroSectionProps) {
             className="object-contain rounded-xl shadow-md border-2 border-brand-rose/30 bg-white p-1"
           />
           {content.qrCaption && (
-            <p
-              className="font-body text-brand-goldDark tracking-wide"
-              style={{ fontSize: captionFontSize }}
-            >
+            <p className="font-body text-lg md:text-xl text-brand-goldDark tracking-wide">
               {content.qrCaption}
             </p>
           )}
