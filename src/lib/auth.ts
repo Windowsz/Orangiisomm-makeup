@@ -25,7 +25,7 @@ export async function getAdminCredentials(): Promise<AdminCredentials> {
     // fall through to env vars
   }
   return {
-    username: process.env.ADMIN_USERNAME,
+    username: process.env.ADMIN_USERNAME ?? 'admin',
     passwordHash: process.env.ADMIN_PASSWORD_HASH ?? '',
   }
 }
