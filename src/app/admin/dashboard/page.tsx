@@ -91,6 +91,11 @@ export default function DashboardPage() {
       </div>
 
       <div className="flex flex-col gap-6">
+        <HeroEditor
+          content={content.hero}
+          onUpdate={hero => setContent(c => c ? { ...c, hero } : c)}
+        />
+
         <GalleryManager
           images={content.gallery}
           onUpdate={gallery => setContent(c => c ? { ...c, gallery } : c)}
@@ -101,14 +106,14 @@ export default function DashboardPage() {
           onUpdate={gallerySettings => setContent(c => c ? { ...c, gallerySettings } : c)}
         />
 
-        <HeroEditor
-          content={content.hero}
-          onUpdate={hero => setContent(c => c ? { ...c, hero } : c)}
-        />
-
         <SocialEditor
           content={content.social}
           onUpdate={social => setContent(c => c ? { ...c, social } : c)}
+        />
+
+        <PricingEditor
+          content={content.pricing}
+          onUpdate={pricing => setContent(c => c ? { ...c, pricing } : c)}
         />
 
         <AboutEditor
@@ -119,11 +124,6 @@ export default function DashboardPage() {
         <ContactEditor
           content={content.contact}
           onUpdate={contact => setContent(c => c ? { ...c, contact } : c)}
-        />
-
-        <PricingEditor
-          content={content.pricing}
-          onUpdate={pricing => setContent(c => c ? { ...c, pricing } : c)}
         />
 
         {/* Section Backgrounds */}

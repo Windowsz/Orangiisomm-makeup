@@ -8,7 +8,7 @@ interface ContactEditorProps {
   onUpdate: (content: ContactContent) => void
 }
 
-const ICON_OPTIONS: ContactCard['icon'][] = ['line', 'phone', 'facebook', 'instagram', 'custom']
+const ICON_OPTIONS: ContactCard['icon'][] = ['line', 'phone', 'facebook', 'instagram', 'tiktok', 'custom']
 
 function newCard(): ContactCard {
   return { id: Date.now().toString(), label: '', value: '', href: '', icon: 'custom' }
@@ -171,6 +171,16 @@ export default function ContactEditor({ content, onUpdate }: ContactEditorProps)
                   >
                     Remove
                   </button>
+                </div>
+                <div>
+                  <label className="block text-xs text-gray-400 mb-0.5">Icon Image URL <span className="normal-case font-normal text-gray-300">(overrides icon above)</span></label>
+                  <input
+                    type="text"
+                    value={card.iconImageUrl ?? ''}
+                    onChange={e => updateCard(i, { iconImageUrl: e.target.value || undefined })}
+                    placeholder="https://… (leave empty to use icon)"
+                    className="w-full border border-gray-200 rounded-md px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold"
+                  />
                 </div>
               </div>
             ))}

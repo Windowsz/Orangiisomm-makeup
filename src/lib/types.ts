@@ -31,7 +31,8 @@ export interface ContactCard {
   label: string
   value: string
   href: string
-  icon: 'line' | 'phone' | 'facebook' | 'instagram' | 'custom'
+  icon: 'line' | 'phone' | 'facebook' | 'instagram' | 'tiktok' | 'custom'
+  iconImageUrl?: string  // when set, shown as <img> instead of the SVG icon
 }
 
 export interface ContactContent {
