@@ -2,14 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Red lipstick cursor — rotated -45° to match standard cursor angle, hotspot at tip */
+/* Lipstick cursor. The bullet tip is the hotspot after the -45° tilt. */
 *, *::before, *::after {
-  cursor: url('/cursor/lipstick.svg') 7 7, auto;
+  cursor: url('/cursor/lipstick.svg?v=3') 10 8, auto;
 }
 
 a, button, [role="button"], input[type="submit"], input[type="button"],
 select, label[for], [tabindex] {
-  cursor: url('/cursor/lipstick.svg') 7 7, pointer;
+  cursor: url('/cursor/lipstick.svg?v=3') 10 8, pointer;
 }
 
 /* Smooth scrolling */
