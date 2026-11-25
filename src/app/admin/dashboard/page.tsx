@@ -8,7 +8,6 @@ import HeroEditor from '@/components/admin/HeroEditor'
 import AboutEditor from '@/components/admin/AboutEditor'
 import ContactEditor from '@/components/admin/ContactEditor'
 import PricingEditor from '@/components/admin/PricingEditor'
-import GallerySettingsEditor from '@/components/admin/GallerySettingsEditor'
 import SocialEditor from '@/components/admin/SocialEditor'
 import SectionStyleEditor from '@/components/admin/SectionStyleEditor'
 import CredentialsEditor from '@/components/admin/CredentialsEditor'
@@ -101,11 +100,6 @@ export default function DashboardPage() {
           onUpdate={gallery => setContent(c => c ? { ...c, gallery } : c)}
         />
 
-        <GallerySettingsEditor
-          settings={content.gallerySettings}
-          onUpdate={gallerySettings => setContent(c => c ? { ...c, gallerySettings } : c)}
-        />
-
         <SocialEditor
           content={content.social}
           onUpdate={social => setContent(c => c ? { ...c, social } : c)}
@@ -133,16 +127,6 @@ export default function DashboardPage() {
             Enter plain CSS for each section&apos;s background. Uses ID selector so it overrides the default. Leave empty for the default style.
           </p>
           <div className="flex flex-col gap-3">
-            <SectionStyleEditor
-              label="Hero"
-              value={content.sectionStyles.hero}
-              onChange={v => setContent(c => c ? { ...c, sectionStyles: { ...c.sectionStyles, hero: v } } : c)}
-            />
-            <SectionStyleEditor
-              label="Gallery"
-              value={content.sectionStyles.gallery}
-              onChange={v => setContent(c => c ? { ...c, sectionStyles: { ...c.sectionStyles, gallery: v } } : c)}
-            />
             <SectionStyleEditor
               label="Social"
               value={content.sectionStyles.social}

@@ -22,6 +22,7 @@ const config: Config = {
       },
       fontFamily: {
         display: ['var(--font-playfair)', 'Georgia', 'serif'],
+        editorial: ['var(--font-cormorant)', 'Georgia', 'serif'],
         body:    ['var(--font-lato)', 'system-ui', 'sans-serif'],
       },
       animation: {
