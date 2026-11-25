@@ -7,96 +7,57 @@ interface PricingSectionProps {
 
 export default function PricingSection({ content, style }: PricingSectionProps) {
   return (
-    <section id="pricing" className="py-20 px-6 bg-brand-blush/40">
+    <section id="pricing" className="bg-[#100e0c] text-[#f6f1e8] px-6 py-24">
       {style?.bgCss && <style>{`#pricing { ${style.bgCss} }`}</style>}
       <div className="max-w-6xl mx-auto">
-        {/* Heading */}
-        <div className="text-center mb-14">
-          <p className="font-body text-xs tracking-[0.3em] uppercase text-brand-goldDark mb-3">
-            Packages
-          </p>
-          <h2 className="font-display text-4xl md:text-5xl font-bold text-gray-800 mb-4">
-            {content.headline}
-          </h2>
-          <div className="gold-divider mb-4" />
-          {content.subheadline && (
-            <p className="font-body text-gray-500 text-sm max-w-xl mx-auto mt-4">
-              {content.subheadline}
-            </p>
-          )}
-        </div>
+        <p className="text-[11px] tracking-[0.36em] uppercase text-[#c6a56e] mb-3">Packages</p>
+        <h2 className="font-editorial italic font-medium text-5xl md:text-7xl leading-none max-w-3xl">
+          {content.headline}
+        </h2>
+        {content.subheadline && (
+          <p className="mt-5 max-w-xl text-[#b7ab9e] font-light leading-relaxed">{content.subheadline}</p>
+        )}
 
-        {/* Cards grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-14 items-stretch">
           {content.cards.map(card => (
-            <div
+            <article
               key={card.id}
-              className={`relative rounded-2xl overflow-hidden flex flex-col transition-transform duration-300 hover:-translate-y-1 ${
+              className={`flex flex-col border p-7 ${
                 card.highlighted
-                  ? 'bg-brand-goldDark text-white shadow-2xl shadow-brand-goldDark/30 ring-2 ring-brand-gold'
-                  : 'bg-white text-gray-800 shadow-lg'
+                  ? 'border-[#c6a56e] bg-[#1a1612]'
+                  : 'border-[#c6a56e]/30 bg-transparent'
               }`}
             >
-              {/* Popular badge */}
-              {card.highlighted && (
-                <div className="absolute top-4 right-4 bg-brand-crimson text-white text-[10px] font-body font-bold tracking-widest uppercase px-3 py-1 rounded-full">
-                  Popular
-                </div>
-              )}
-
-              <div className="p-7 flex flex-col flex-1">
-                {/* Title & price */}
-                <p className={`font-body text-xs tracking-[0.25em] uppercase mb-2 ${card.highlighted ? 'text-brand-goldLight' : 'text-brand-goldDark'}`}>
-                  {card.title}
-                </p>
-                <div className="flex items-end gap-1.5 mb-1">
-                  <span className="font-display text-4xl font-bold leading-none">{card.price}</span>
-                  {card.priceNote && (
-                    <span className={`font-body text-sm pb-0.5 ${card.highlighted ? 'text-white/70' : 'text-gray-400'}`}>
-                      / {card.priceNote}
-                    </span>
-                  )}
-                </div>
-
-                {card.description && (
-                  <p className={`font-body text-sm leading-relaxed mt-3 mb-6 ${card.highlighted ? 'text-white/80' : 'text-gray-500'}`}>
-                    {card.description}
-                  </p>
-                )}
-
-                {/* Divider */}
-                <div className={`h-px mb-6 ${card.highlighted ? 'bg-white/20' : 'bg-gray-100'}`} />
-
-                {/* Features list */}
-                <ul className="flex flex-col gap-2.5 flex-1 mb-8">
-                  {card.features.map((feat, i) => (
-                    <li key={i} className="flex items-start gap-2.5 font-body text-sm">
-                      <svg
-                        className={`w-4 h-4 mt-0.5 flex-shrink-0 ${card.highlighted ? 'text-brand-gold' : 'text-brand-goldDark'}`}
-                        fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24"
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                      </svg>
-                      <span className={card.highlighted ? 'text-white/90' : 'text-gray-600'}>{feat}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                {/* CTA */}
-                {card.ctaText && (
-                  <a
-                    href={card.ctaHref || '#contact'}
-                    className={`block text-center font-body font-bold tracking-widest uppercase text-sm px-6 py-3 rounded-full transition-all duration-200 ${
-                      card.highlighted
-                        ? 'bg-white text-brand-goldDark hover:bg-brand-gold hover:text-white'
-                        : 'bg-brand-goldDark text-white hover:bg-brand-gold'
-                    }`}
-                  >
-                    {card.ctaText}
-                  </a>
+              <div className="flex items-center justify-between gap-3 mb-6">
+                <p className="text-[11px] tracking-[0.28em] uppercase text-[#c6a56e]">{card.title}</p>
+                {card.highlighted && (
+                  <span className="text-[10px] tracking-[0.22em] uppercase text-[#100e0c] bg-[#c6a56e] px-2 py-1">Popular</span>
                 )}
               </div>
-            </div>
+              <div className="flex items-end gap-2">
+                <span className="font-editorial text-5xl leading-none">{card.price}</span>
+                {card.priceNote && <span className="text-sm text-[#b7ab9e] pb-1">/ {card.priceNote}</span>}
+              </div>
+              {card.description && (
+                <p className="text-sm text-[#b7ab9e] leading-relaxed mt-4">{card.description}</p>
+              )}
+              <ul className="mt-6 flex flex-col gap-2.5 flex-1">
+                {card.features.map((feat, i) => (
+                  <li key={i} className="flex items-start gap-2.5 text-sm text-[#f6f1e8]/85">
+                    <span className="mt-2 w-3 h-px bg-[#c6a56e] flex-shrink-0" />
+                    {feat}
+                  </li>
+                ))}
+              </ul>
+              {card.ctaText && (
+                <a
+                  href={card.ctaHref || '#contact'}
+                  className="mt-8 inline-block text-center text-[11px] tracking-[0.26em] uppercase bg-[#c6a56e] text-[#100e0c] px-6 py-3 hover:bg-[#e8d5b0] transition-colors"
+                >
+                  {card.ctaText}
+                </a>
+              )}
+            </article>
           ))}
         </div>
       </div>

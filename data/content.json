@@ -43,6 +43,20 @@
         "value": "Orangiisommmakeup",
         "href": "https://www.facebook.com/Orangiisommmakeup",
         "icon": "facebook"
+      },
+      {
+        "id": "instagram",
+        "label": "Instagram",
+        "value": "orangiisomm.makeup",
+        "href": "https://www.instagram.com/orangiisomm.makeup",
+        "icon": "instagram"
+      },
+      {
+        "id": "tiktok",
+        "label": "TikTok",
+        "value": "@orangiisomm",
+        "href": "https://www.tiktok.com/@orangiisomm",
+        "icon": "tiktok"
       }
     ]
   },

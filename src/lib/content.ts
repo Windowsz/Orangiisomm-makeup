@@ -1,7 +1,7 @@
 import { kv } from '@vercel/kv'
 import { readFileSync } from 'fs'
 import path from 'path'
-import type { SiteContent, SectionStyle } from './types'
+import type { ContactCard, SiteContent, SectionStyle } from './types'
 
 const CONTENT_KEY = 'site_content'
 const CONTENT_PATH = path.join(process.cwd(), 'data', 'content.json')
@@ -26,6 +26,17 @@ function migrateSectionStyle(s: Record<string, unknown> | undefined, def: Sectio
   return { bgCss: '' }
 }
 
+function contactCards(stored: ContactCard[] | undefined, defaults: ContactCard[]): ContactCard[] {
+  const cards = stored ? [...stored] : [...defaults]
+  const ids = new Set(cards.map(card => card.id))
+  for (const card of defaults) {
+    if ((card.id === 'instagram' || card.id === 'tiktok') && !ids.has(card.id)) {
+      cards.push(card)
+    }
+  }
+  return cards
+}
+
 function mergeWithDefaults(stored: Partial<SiteContent>, defaults: SiteContent): SiteContent {
   const storedStyles = stored.sectionStyles as Record<string, Record<string, unknown>> | undefined
   // Support migration from old key name "facebook" → "social"
@@ -37,7 +48,7 @@ function mergeWithDefaults(stored: Partial<SiteContent>, defaults: SiteContent):
     contact: {
       ...defaults.contact,
       ...(stored.contact ?? {}),
-      cards: (stored.contact as SiteContent['contact'] | undefined)?.cards ?? defaults.contact.cards,
+      cards: contactCards((stored.contact as SiteContent['contact'] | undefined)?.cards, defaults.contact.cards),
       stats: (stored.contact as SiteContent['contact'] | undefined)?.stats ?? defaults.contact.stats,
     },
     social:          stored.social          ?? defaults.social,
@@ -58,6 +69,8 @@ function mergeWithDefaults(stored: Partial<SiteContent>, defaults: SiteContent):
 function needsUpdate(stored: Partial<SiteContent>): boolean {
   return (
     !stored.contact?.cards  ||
+    !stored.contact.cards.some(card => card.id === 'instagram') ||
+    !stored.contact.cards.some(card => card.id === 'tiktok') ||
     !stored.gallerySettings ||
     !stored.sectionStyles   ||
     !stored.pricing         ||
