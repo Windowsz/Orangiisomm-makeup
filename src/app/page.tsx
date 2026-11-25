@@ -1,6 +1,5 @@
 import { readContent } from '@/lib/content'
-import HeroSection from '@/components/home/HeroSection'
-import GallerySection from '@/components/home/GallerySection'
+import CinematicIntro from '@/components/home/CinematicIntro'
 import SocialSection from '@/components/home/SocialSection'
 import PricingSection from '@/components/home/PricingSection'
 import AboutContactSection from '@/components/home/AboutContactSection'
@@ -12,12 +11,7 @@ export default async function HomePage() {
 
   return (
     <main>
-      <HeroSection content={content.hero} style={content.sectionStyles.hero} />
-      <GallerySection
-        images={content.gallery}
-        settings={content.gallerySettings}
-        style={content.sectionStyles.gallery}
-      />
+      <CinematicIntro hero={content.hero} images={content.gallery} />
       <SocialSection content={content.social} style={content.sectionStyles.social} />
       <PricingSection content={content.pricing} style={content.sectionStyles.pricing} />
       <AboutContactSection
