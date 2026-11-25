@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Orangiisomm — scroll mockup</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: #1c1c1c; color: #333; font-family: Lato, system-ui, sans-serif; }
+    .stage {
+      width: min(1280px, 100%);
+      margin: 28px auto;
+      background: #111;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0,0,0,.45);
+    }
+    .screen { height: 800px; position: relative; overflow: hidden; background: #FFF8F9; }
+    .screen + .screen { border-top: 8px solid #111; }
+    nav {
+      position: absolute; inset: 0 0 auto 0; height: 64px; z-index: 5;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px;
+      background: rgba(255,248,249,.72);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(232,160,176,.35);
+      font-size: 12px; letter-spacing: .22em; text-transform: uppercase;
+    }
+    .logo { font-family: "Playfair Display", Georgia, serif; font-size: 22px; letter-spacing: .04em; text-transform: none; color: #A07840; }
+    nav ul { display: flex; gap: 32px; list-style: none; color: #666; }
+    .hero {
+      height: 100%;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 64px 48px 40px;
+      background:
+        radial-gradient(ellipse at 62% 38%, rgba(250,212,224,.95) 0%, rgba(247,232,238,.7) 38%, rgba(255,248,249,1) 70%);
+    }
+    .eyebrow { font-size: 12px; letter-spacing: .34em; text-transform: uppercase; color: #A07840; margin-bottom: 18px; }
+    h1 {
+      font-family: "Playfair Display", Georgia, serif;
+      font-weight: 600; font-size: 92px; line-height: .95; color: #A07840;
+      max-width: 920px;
+    }
+    .sub { margin-top: 22px; max-width: 460px; font-weight: 300; font-size: 20px; line-height: 1.55; color: #666; }
+    .cta {
+      margin-top: 36px; background: #C0392B; color: white; text-decoration: none;
+      font-size: 12px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase;
+      padding: 16px 36px; border-radius: 999px;
+      box-shadow: 0 12px 30px rgba(192,57,43,.28);
+    }
+    .scroll-hint {
+      position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%);
+      font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: #A07840;
+    }
+    .look { height: 100%; display: grid; grid-template-columns: 1.05fr .95fr; }
+    .photo {
+      background: #eee center 18% / cover no-repeat;
+    }
+    .copy {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 80px 72px 64px 64px;
+      background: #FFF8F9;
+    }
+    .index { font-size: 12px; letter-spacing: .32em; text-transform: uppercase; color: #C9A96E; margin-bottom: 18px; }
+    h2 {
+      font-family: "Playfair Display", Georgia, serif;
+      font-weight: 500; font-size: 84px; line-height: .92; color: #2a2a2a;
+    }
+    .copy p { margin-top: 22px; max-width: 360px; font-weight: 300; font-size: 18px; line-height: 1.6; color: #666; }
+    .rail {
+      position: absolute; right: 28px; top: 50%; transform: translateY(-50%);
+      display: flex; flex-direction: column; gap: 10px; z-index: 4;
+    }
+    .rail i {
+      width: 7px; height: 7px; border-radius: 99px; background: #E8D5B0; display: block;
+    }
+    .rail i.on { height: 26px; background: #A07840; }
+    .caption {
+      font-family: Lato, sans-serif;
+      background: #111; color: #E8D5B0;
+      font-size: 12px; letter-spacing: .18em; text-transform: uppercase;
+      padding: 10px 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="stage">
+    <div class="caption">01 — Hero</div>
+    <section class="screen" id="hero">
+      <nav>
+        <div class="logo">Orangiisomm</div>
+        <ul>
+          <li>Home</li><li>Gallery</li><li>Pricing</li><li>Contact</li>
+        </ul>
+      </nav>
+      <div class="hero">
+        <p class="eyebrow">Makeup Artist</p>
+        <h1>Glam That Speaks</h1>
+        <p class="sub">Professional makeup artistry — one look, held on screen while the page moves.</p>
+        <a class="cta" href="#look">See My Work</a>
+        <div class="scroll-hint">Scroll</div>
+      </div>
+    </section>
+
+    <div class="caption">02 — Sticky look, frame 1</div>
+    <section class="screen" id="look">
+      <nav>
+        <div class="logo">Orangiisomm</div>
+        <ul>
+          <li>Home</li><li>Gallery</li><li>Pricing</li><li>Contact</li>
+        </ul>
+      </nav>
+      <div class="look">
+        <div class="photo" style="background-image:url('https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?auto=format&fit=crop&w=1400&h=1800&q=80')"></div>
+        <div class="copy">
+          <p class="index">Look 01 · Bridal</p>
+          <h2>Soft Glam</h2>
+          <p>The portrait stays pinned. The next scroll only changes the words and the face.</p>
+        </div>
+      </div>
+      <div class="rail"><i class="on"></i><i></i><i></i><i></i></div>
+    </section>
+
+    <div class="caption">03 — Same frame, next look</div>
+    <section class="screen" id="look2">
+      <nav>
+        <div class="logo">Orangiisomm</div>
+        <ul>
+          <li>Home</li><li>Gallery</li><li>Pricing</li><li>Contact</li>
+        </ul>
+      </nav>
+      <div class="look">
+        <div class="photo" style="background-image:url('https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=1400&h=1800&q=80'); background-position:center 22%"></div>
+        <div class="copy">
+          <p class="index">Look 02 · Editorial</p>
+          <h2>Evening</h2>
+          <p>Same crop, same light side, same type size. Only the subject changes.</p>
+        </div>
+      </div>
+      <div class="rail"><i></i><i class="on"></i><i></i><i></i></div>
+    </section>
+  </div>
+</body>
+</html>
