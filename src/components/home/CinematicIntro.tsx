@@ -105,7 +105,7 @@ export default function CinematicIntro({ hero, images }: CinematicIntroProps) {
       }
 
       const reelEnd = reel ? reel.offsetTop + reel.offsetHeight : 0
-      const overGallery = Boolean(reel) && y > reel.offsetTop - 8 && y < reelEnd - 40
+      const overGallery = reel != null && y > reel.offsetTop - 8 && y < reelEnd - 40
       document.documentElement.dataset.nav = overGallery ? 'ink' : 'light'
     }
 
