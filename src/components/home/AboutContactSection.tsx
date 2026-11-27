@@ -40,15 +40,6 @@ function ContactIcon({ type }: { type: string }) {
   )
 }
 
-const iconColors: Record<string, string> = {
-  line: 'bg-[#06C755] text-white',
-  phone: 'bg-brand-goldDark text-white',
-  facebook: 'bg-[#1877F2] text-white',
-  instagram: 'bg-gradient-to-br from-purple-500 via-pink-500 to-orange-400 text-white',
-  tiktok: 'bg-black text-white',
-  custom: 'bg-gray-600 text-white',
-}
-
 function CardIcon({ card }: { card: ContactCard }) {
   if (card.iconImageUrl) {
     return (
@@ -61,111 +52,69 @@ function CardIcon({ card }: { card: ContactCard }) {
 
 export default function AboutContactSection({ aboutContent, contactContent, style }: AboutContactSectionProps) {
   return (
-    <section id="about" className="py-20 px-6 bg-brand-petal">
+    <section id="about" className="bg-[#100e0c] text-[#f6f1e8]">
       {style?.bgCss && <style>{`#about { ${style.bgCss} }`}</style>}
-      <div className="max-w-5xl mx-auto">
-
-        {/* ── About block ── */}
-        <div className="grid md:grid-cols-2 gap-12 items-center mb-20">
-          {/* Photo */}
-          <div className="relative">
-            <div className="relative h-80 md:h-96 rounded-2xl overflow-hidden shadow-xl">
-              {aboutContent.imageUrl ? (
-                <Image
-                  src={aboutContent.imageUrl}
-                  alt="Orangiisomm makeup artist"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                />
-              ) : (
-                <div className="w-full h-full bg-brand-blush flex items-center justify-center">
-                  <span className="font-display text-4xl text-brand-goldDark">O</span>
-                </div>
-              )}
+      <div className="grid md:grid-cols-2 min-h-[70vh]">
+        <div className="relative min-h-[420px]">
+          {aboutContent.imageUrl ? (
+            <Image
+              src={aboutContent.imageUrl}
+              alt="Orangiisomm makeup artist"
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
+          ) : (
+            <div className="absolute inset-0 bg-[#1a1612] flex items-center justify-center">
+              <span className="font-editorial italic text-6xl text-[#c6a56e]">O</span>
             </div>
-            <div className="absolute -bottom-4 -right-4 w-full h-full border-2 border-brand-gold rounded-2xl -z-10" />
-          </div>
-
-          {/* Bio */}
-          <div>
-            <p className="font-body text-xs tracking-[0.3em] uppercase text-brand-goldDark mb-3">
-              The Artist
-            </p>
-            <h2 className="font-display text-4xl font-bold text-gray-800 mb-4">
-              {aboutContent.title}
-            </h2>
-            <div className="gold-divider-left mb-6" />
-            <p className="font-body text-gray-600 leading-relaxed text-lg mb-8">
-              {aboutContent.body}
-            </p>
-
-            {/* Quick-contact links */}
-            <div className="flex flex-wrap gap-3">
-              <a
-                href="https://lin.ee/Hjhy6rb"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-[#06C755] text-white text-sm font-body font-bold px-4 py-2.5 rounded-full hover:opacity-90 transition-opacity shadow-sm"
-              >
-                <ContactIcon type="line" />
-                @orangiisomm
-              </a>
-              <a
-                href="tel:0834375181"
-                className="inline-flex items-center gap-2 bg-brand-goldDark text-white text-sm font-body font-bold px-4 py-2.5 rounded-full hover:opacity-90 transition-opacity shadow-sm"
-              >
-                <ContactIcon type="phone" />
-                083-437-5181
-              </a>
-            </div>
-          </div>
+          )}
         </div>
-
-        {/* ── Contact block ── */}
-        <div id="contact" className="text-center">
-          <p className="font-body text-xs tracking-[0.3em] uppercase text-brand-goldDark mb-3">
-            Get In Touch
+        <div className="flex flex-col justify-end px-8 md:px-16 py-16 border-t md:border-t-0 md:border-l border-[#c6a56e]/30">
+          <p className="text-[11px] tracking-[0.36em] uppercase text-[#c6a56e] mb-4">The Artist</p>
+          <h2 className="font-editorial italic font-medium text-5xl md:text-6xl leading-none mb-6">
+            {aboutContent.title}
+          </h2>
+          <p className="text-[#b7ab9e] font-light leading-relaxed text-lg max-w-md">
+            {aboutContent.body}
           </p>
-          <h2 className="font-display text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+        </div>
+      </div>
+
+      <div id="contact" className="px-6 md:px-16 py-24 border-t border-[#c6a56e]/30">
+        <div className="max-w-5xl mx-auto">
+          <p className="text-[11px] tracking-[0.36em] uppercase text-[#c6a56e] mb-3">Contact</p>
+          <h2 className="font-editorial italic font-medium text-5xl md:text-7xl leading-none max-w-3xl">
             {contactContent.headline}
           </h2>
-          <div className="gold-divider mb-6" />
-          <p className="font-body text-gray-600 text-lg leading-relaxed max-w-xl mx-auto mb-10">
-            {contactContent.body}
-          </p>
+          <p className="mt-5 max-w-xl text-[#b7ab9e] font-light leading-relaxed">{contactContent.body}</p>
 
-          {/* Stats */}
-          <div className="flex justify-center gap-8 text-brand-goldDark mb-12">
-            {contactContent.stats.map((stat, i) => (
-              <div key={stat.label} className="flex items-center gap-8">
-                {i > 0 && <div className="w-px h-10 bg-brand-rose" />}
-                <div className="text-center">
-                  <p className="font-display text-3xl font-bold">{stat.value}</p>
-                  <p className="font-body text-sm text-gray-500 mt-1">{stat.label}</p>
-                </div>
+          <div className="grid grid-cols-3 gap-6 max-w-xl mt-12">
+            {contactContent.stats.map(stat => (
+              <div key={stat.label}>
+                <p className="font-editorial text-4xl">{stat.value}</p>
+                <p className="mt-1 text-[11px] tracking-[0.18em] uppercase text-[#b7ab9e]">{stat.label}</p>
               </div>
             ))}
           </div>
 
-          {/* Contact cards */}
-          {contactContent.cards && contactContent.cards.length > 0 && (
-            <div className="flex flex-wrap justify-center gap-4">
+          {contactContent.cards.length > 0 && (
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-12">
               {contactContent.cards.map(card => (
                 <a
                   key={card.id}
                   href={card.href}
                   target={card.href.startsWith('tel:') || card.href.startsWith('mailto:') ? '_self' : '_blank'}
                   rel="noopener noreferrer"
-                  className="flex items-center gap-3 bg-white rounded-2xl px-5 py-4 shadow-md hover:shadow-lg hover:scale-[1.03] transition-all duration-200 min-w-[180px]"
+                  className="flex items-center gap-4 border border-[#c6a56e]/30 px-5 py-4 hover:border-[#c6a56e] transition-colors"
                 >
-                  <span className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center overflow-hidden ${card.iconImageUrl ? '' : (iconColors[card.icon] ?? iconColors.custom)}`}>
+                  <span className={`flex-shrink-0 w-10 h-10 flex items-center justify-center overflow-hidden text-[#c6a56e] ${card.iconImageUrl ? '' : ''}`}>
                     <CardIcon card={card} />
                   </span>
-                  <div className="text-left">
-                    <p className="font-body text-xs text-gray-400 uppercase tracking-wide">{card.label}</p>
-                    <p className="font-body text-sm font-bold text-gray-800">{card.value}</p>
-                  </div>
+                  <span className="text-left min-w-0">
+                    <span className="block text-[11px] tracking-[0.2em] uppercase text-[#b7ab9e]">{card.label}</span>
+                    <span className="block text-sm truncate">{card.value}</span>
+                  </span>
                 </a>
               ))}
             </div>

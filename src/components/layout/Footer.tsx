@@ -1,7 +1,7 @@
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-gray-400 py-10 text-center">
-      <p className="font-display text-brand-gold text-lg mb-2">Orangiisomm</p>
+    <footer className="bg-[#100e0c] text-[#b7ab9e] py-10 text-center border-t border-[#c6a56e]/20">
+      <p className="font-editorial text-[#c6a56e] text-2xl mb-2">Orangiisomm</p>
       <p className="text-sm mb-4 italic">Made with love &amp; lipstick ♥</p>
       <a
         href="https://www.facebook.com/Orangiisommmakeup"

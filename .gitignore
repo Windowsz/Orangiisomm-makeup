@@ -34,3 +34,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# uploaded gallery files kept only when KV is unavailable
+/public/uploads/*
+!/public/uploads/.gitkeep

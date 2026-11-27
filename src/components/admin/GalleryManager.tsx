@@ -3,6 +3,41 @@
 import { useRef, useState } from 'react'
 import type { GalleryImage } from '@/lib/types'
 
+const MAX_EDGE = 2000
+
+async function compressImage(file: File): Promise<Blob> {
+  const bitmap = await createImageBitmap(file)
+  const scale = Math.min(1, MAX_EDGE / Math.max(bitmap.width, bitmap.height))
+  const width = Math.max(1, Math.round(bitmap.width * scale))
+  const height = Math.max(1, Math.round(bitmap.height * scale))
+  const canvas = document.createElement('canvas')
+  canvas.width = width
+  canvas.height = height
+  const ctx = canvas.getContext('2d')
+  if (!ctx) throw new Error('canvas')
+  ctx.drawImage(bitmap, 0, 0, width, height)
+  bitmap.close()
+  const blob = await new Promise<Blob | null>(resolve => canvas.toBlob(resolve, 'image/jpeg', 0.82))
+  if (!blob || blob.size > 4_000_000) throw new Error('large')
+  return blob
+}
+
+async function uploadFile(file: File): Promise<string> {
+  const blob = await compressImage(file)
+  const body = new FormData()
+  body.set('file', new File([blob], 'look.jpg', { type: 'image/jpeg' }))
+  const res = await fetch('/api/media', { method: 'POST', body })
+  const data = await res.json().catch(() => ({})) as { url?: string; error?: string }
+  if (!res.ok || !data.url) throw new Error(data.error || 'อัปโหลดไม่สำเร็จ')
+  return data.url
+}
+
+function forgetMedia(url: string) {
+  const id = url.match(/^\/api\/media\/([0-9a-f-]{36})$/i)?.[1]
+    ?? url.match(/^\/uploads\/([0-9a-f-]{36})\.(?:jpg|png|webp)$/i)?.[1]
+  if (id) fetch(`/api/media/${id}`, { method: 'DELETE' }).catch(() => {})
+}
+
 interface GalleryManagerProps {
   images: GalleryImage[]
   onUpdate: (images: GalleryImage[]) => void
@@ -29,6 +64,9 @@ export default function GalleryManager({ images, onUpdate }: GalleryManagerProps
   const [newCaption, setNewCaption] = useState('')
   const [saving, setSaving] = useState(false)
   const [saved, setSaved] = useState(false)
+  const [uploading, setUploading] = useState(false)
+  const [error, setError] = useState('')
+  const fileRef = useRef<HTMLInputElement>(null)
 
   const save = async (updated: GalleryImage[]) => {
     setSaving(true)
@@ -39,13 +77,60 @@ export default function GalleryManager({ images, onUpdate }: GalleryManagerProps
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ gallery: updated }),
       })
-      if (res.ok) {
-        onUpdate(updated)
-        setSaved(true)
-        setTimeout(() => setSaved(false), 3000)
-      }
+      if (!res.ok) return false
+      onUpdate(updated)
+      setSaved(true)
+      setTimeout(() => setSaved(false), 3000)
+      return true
     } finally {
       setSaving(false)
+    }
+  }
+
+  const addFiles = async (files: FileList | null) => {
+    if (!files?.length) return
+    setUploading(true)
+    setError('')
+    const added: GalleryImage[] = []
+    try {
+      for (const file of Array.from(files)) {
+        const url = await uploadFile(file)
+        added.push({
+          id: Date.now().toString() + added.length,
+          url,
+          alt: newAlt.trim() || 'Makeup look',
+          caption: newCaption.trim() || undefined,
+        })
+      }
+      const updated = [...listRef.current, ...added]
+      listRef.current = updated
+      setList(updated)
+      const stored = await save(updated)
+      if (!stored) throw new Error('save')
+      setNewAlt('')
+      setNewCaption('')
+    } catch {
+      added.forEach(img => forgetMedia(img.url))
+      setError('อัปโหลดไม่สำเร็จ ใช้ไฟล์ JPG, PNG หรือ WEBP')
+    } finally {
+      setUploading(false)
+      if (fileRef.current) fileRef.current.value = ''
+    }
+  }
+
+  const replaceFile = async (id: string, file: File | undefined) => {
+    if (!file) return
+    setUploading(true)
+    setError('')
+    try {
+      const url = await uploadFile(file)
+      const previous = listRef.current.find(img => img.id === id)?.url
+      commit(listRef.current.map(img => (img.id === id ? { ...img, url } : img)))
+      if (previous) forgetMedia(previous)
+    } catch {
+      setError('เปลี่ยนรูปไม่สำเร็จ ใช้ไฟล์ JPG, PNG หรือ WEBP')
+    } finally {
+      setUploading(false)
     }
   }
 
@@ -71,6 +156,12 @@ export default function GalleryManager({ images, onUpdate }: GalleryManagerProps
     save(updated)
   }
 
+  const remove = (id: string) => {
+    const current = listRef.current.find(img => img.id === id)
+    if (current) forgetMedia(current.url)
+    commit(listRef.current.filter(item => item.id !== id))
+  }
+
   const move = (index: number, dir: -1 | 1) => {
     const curr = listRef.current
     const next = index + dir
@@ -89,7 +180,10 @@ export default function GalleryManager({ images, onUpdate }: GalleryManagerProps
     <div className="bg-white rounded-xl border border-gray-100 p-6">
       <div className="flex items-center justify-between mb-2">
         <h2 className="font-display text-lg font-bold text-gray-800">รูปบนหน้าแรก</h2>
-        {saved && <span className="text-green-600 text-sm font-body">Saved ✓</span>}
+        <span className="text-sm font-body">
+          {saved && <span className="text-green-600">Saved ✓</span>}
+          {error && <span className="text-brand-crimson">{error}</span>}
+        </span>
       </div>
       <p className="text-sm text-gray-500 leading-relaxed mb-5">
         ลำดับบนลงล่างคือลำดับบนเว็บ รูปที่ 1 ถึง 3 เป็นลุคตอนเลื่อน และรูปที่ 1 เป็นพื้นหลังชื่อหน้าแรกด้วย
@@ -144,6 +238,20 @@ export default function GalleryManager({ images, onUpdate }: GalleryManagerProps
                     {place.title}
                   </p>
                   <p className="text-xs text-gray-400 mb-2">{place.note}</p>
+                  <label className="mb-2 inline-flex text-xs text-gray-500 underline cursor-pointer">
+                    เปลี่ยนรูป
+                    <input
+                      type="file"
+                      accept="image/jpeg,image/png,image/webp"
+                      className="sr-only"
+                      disabled={saving || uploading}
+                      onChange={e => {
+                        const file = e.target.files?.[0]
+                        e.target.value = ''
+                        replaceFile(img.id, file)
+                      }}
+                    />
+                  </label>
                   <div className="grid sm:grid-cols-2 gap-2">
                     <input
                       type="text"
@@ -166,7 +274,7 @@ export default function GalleryManager({ images, onUpdate }: GalleryManagerProps
 
                 <button
                   type="button"
-                  onClick={() => commit(listRef.current.filter(item => item.id !== img.id))}
+                  onClick={() => remove(img.id)}
                   disabled={saving}
                   className="text-gray-400 hover:text-brand-crimson p-1"
                   aria-label={`ลบ ${img.caption || img.alt}`}
@@ -183,14 +291,7 @@ export default function GalleryManager({ images, onUpdate }: GalleryManagerProps
 
       <div className="border border-dashed border-brand-rose rounded-xl p-4 flex flex-col gap-3">
         <p className="text-xs font-bold tracking-widest uppercase text-gray-500">เพิ่มรูป</p>
-        <p className="text-xs text-gray-400">ใช้ลิงก์รูปที่เปิดได้ถาวร ลิงก์จาก Facebook หมดอายุแล้วรูปจะหาย</p>
-        <input
-          type="url"
-          value={newUrl}
-          onChange={e => setNewUrl(e.target.value)}
-          placeholder="ลิงก์รูป"
-          className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold"
-        />
+        <p className="text-xs text-gray-400">อัปโหลดไฟล์ได้เลย ระบบย่อด้านยาวให้ไม่เกิน 2000 พิกเซลแล้วเก็บไว้บนเว็บ</p>
         <div className="grid sm:grid-cols-2 gap-3">
           <input
             type="text"
@@ -207,13 +308,38 @@ export default function GalleryManager({ images, onUpdate }: GalleryManagerProps
             className="border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold"
           />
         </div>
+        <div className="flex flex-wrap items-center gap-3">
+          <button
+            type="button"
+            onClick={() => fileRef.current?.click()}
+            disabled={saving || uploading}
+            className="bg-brand-crimson text-white text-sm font-bold tracking-widest uppercase px-5 py-2 rounded-lg hover:bg-red-800 transition-colors disabled:opacity-40"
+          >
+            {uploading ? 'กำลังอัปโหลด…' : '+ อัปโหลดรูป'}
+          </button>
+          <input
+            ref={fileRef}
+            type="file"
+            accept="image/jpeg,image/png,image/webp"
+            multiple
+            className="sr-only"
+            onChange={e => addFiles(e.target.files)}
+          />
+        </div>
+        <input
+          type="url"
+          value={newUrl}
+          onChange={e => setNewUrl(e.target.value)}
+          placeholder="หรือวางลิงก์รูปที่เปิดได้ถาวร"
+          className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold"
+        />
         <button
           type="button"
           onClick={addImage}
-          disabled={!newUrl.trim() || saving}
-          className="self-start bg-brand-crimson text-white text-sm font-bold tracking-widest uppercase px-5 py-2 rounded-lg hover:bg-red-800 transition-colors disabled:opacity-40"
+          disabled={!newUrl.trim() || saving || uploading}
+          className="self-start border border-gray-300 text-gray-600 text-sm font-bold tracking-widest uppercase px-5 py-2 rounded-lg hover:border-brand-gold disabled:opacity-40"
         >
-          + เพิ่มท้ายรายการ
+          เพิ่มจากลิงก์
         </button>
       </div>
     </div>

@@ -104,14 +104,9 @@ export default function CinematicIntro({ hero, images }: CinematicIntroProps) {
         })
       }
 
-      const darkUntil = (storyEl ?? document.getElementById('home'))?.offsetTop
-      const darkEnd = storyEl
-        ? storyEl.offsetTop + storyEl.offsetHeight
-        : (darkUntil ?? 0) + vh
-      const footer = document.querySelector('footer')
-      const footerTop = footer instanceof HTMLElement ? footer.offsetTop : Number.POSITIVE_INFINITY
-      const ink = y > darkEnd - 48 && y < footerTop - 48
-      document.documentElement.dataset.nav = ink ? 'ink' : 'light'
+      const reelEnd = reel ? reel.offsetTop + reel.offsetHeight : 0
+      const overGallery = Boolean(reel) && y > reel.offsetTop - 8 && y < reelEnd - 40
+      document.documentElement.dataset.nav = overGallery ? 'ink' : 'light'
     }
 
     const ask = () => {
